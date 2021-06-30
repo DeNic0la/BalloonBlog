@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('header');
             $table->string('subHeader');
-            $table->string('mainText');
+            $table->string('mainText', 10000);
             $table->string('image')->nullable();
             $table->unsignedInteger('author_id');
             $table->timestamps();

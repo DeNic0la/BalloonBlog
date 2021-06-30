@@ -14,6 +14,7 @@
                 <button
                     id="button"
                     type="button"
+                    v-show="allFieldsAreFilled"
                     @click="$emit('formButtonClick')"
                     class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
                 >
@@ -44,6 +45,14 @@ export default {
         fileChanged(e){
             this.post.image = e.target.files[0];
             this.$emit('input',this.post);
+        }
+    },
+    computed:{
+        allFieldsAreFilled(){
+            return this.post.header.length > 0 &&
+                this.post.subHeader.length > 0 &&
+                this.post.mainText.length > 0;
+
         }
     },
     props:['post','buttonName'],

@@ -16,4 +16,11 @@ class BlogController extends Controller
     public function create(){
         return inertia::render('Blog/Create/BlogCreateContainer');
     }
+    public function edit(Request $request){
+        $validated = $request->validate([
+            'postId' => 'required',
+        ]);
+        $Post = Post::where('id', $validated['postId'])->first();
+        return inertia::render('Blog/Edit/BlogEditContainer',['post' => $Post]);
+    }
 }

@@ -25,6 +25,30 @@ class PostController extends Controller
         return response($Post,201);
     }
 
+    public function update(Request $request){
+        $validated = $request->validate([
+            'header' => '',
+            'subHeader' => '',
+            'mainText' => '',
+            'postId' => 'required',
+        ]);
+        $Post = Post::where('id',$validated['postId']);
+        //$Post->update($validated);
+
+        if (array_key_exists('header', $validated)){
+            $Post->update(['header' => $validated['header']]);
+        }
+        if (array_key_exists('subHeader', $validated)){
+            $Post->update(['subHeader' => $validated['subHeader']]);
+        }
+        if (array_key_exists('mainText', $validated)){
+            $Post->update(['mainText' => $validated['mainText']]);
+            //$Post->mainText = $validated['mainText'];
+        }
+        //$Post->save();
+
+    }
+
     public function uploadImage(Request $request, $postId){
 
         $validated = $request->validate([
@@ -33,7 +57,7 @@ class PostController extends Controller
 
 
         $random = Str::random(40);
-        $file_name = time().'_'.$random;//$request->file->getClientOriginalName();
+        $file_name = time().'_'.$random.'.'.$request->file->extension();
         $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
 
         $Post = Post::where('id',$postId)->first();

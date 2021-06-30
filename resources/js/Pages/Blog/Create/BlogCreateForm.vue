@@ -1,5 +1,5 @@
 <template>
-    <post-form :post="post" @input="post = $event" v-on:formButtonClick="createForm" />
+    <post-form :post="post" @input="post = $event" :button-name="'Post'" v-on:formButtonClick="createForm" />
 </template>
 
 <script>

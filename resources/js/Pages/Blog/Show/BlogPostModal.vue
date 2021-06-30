@@ -24,7 +24,7 @@
 
             </div>
             <div class="flex flex-col px-6 py-5 bg-gray-50">
-                <img src="https://images.pexels.com/photos/5913195/pexels-photo-5913195.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="max-h-64 object-contain">
+                <img :src="post.image?'/image?name='+post.image:'https://images.pexels.com/photos/5913195/pexels-photo-5913195.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'" class="max-h-64 object-contain">
                 <h1>
                     {{post.subHeader ?? ''}}
                 </h1>
@@ -33,8 +33,8 @@
                     {{post.mainText ?? ''}}
                 </div>
             </div>
-            <div class="flex flex-row bg-gray-200 pt-1">
-                <button class="bg-blue-700 p-2 m-3 rounded">Edit</button>
+            <div class="flex flex-row bg-gray-200 pt-1" v-if="$page.props.user && $page.props.user.role !== 'none'">
+                <inertia-link :href="'/blog/edit?postId='+post.id" class="bg-blue-700 p-2 m-3 rounded">Edit</inertia-link>
                 <button class="bg-red-700 p-2 m-3 rounded">Delete</button>
             </div>
 

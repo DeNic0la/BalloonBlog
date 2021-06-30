@@ -39,11 +39,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/blog',[BlogController::class, 'index'])->name('blog');
     //Create
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/create',[BlogController::class, 'create']);
+    //Edit
+Route::middleware(['auth:sanctum', 'verified'])->get('/blog/edit',[BlogController::class, 'edit']);
 
 
 
 //WEB-API
 Route::middleware(['auth:sanctum', 'verified'])->post('/blog/add',[PostController::class,'add']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/blog/update',[PostController::class,'update']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/blog/add/image/{post}',[PostController::class,'uploadImage']);
 
 //For Images

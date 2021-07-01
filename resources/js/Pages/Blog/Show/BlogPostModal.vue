@@ -34,15 +34,25 @@
                 </div>
             </div>
             <hr />
-            <div class="flex flex-row content-evenly">
-                <div class="h-16 w-16 flex place-items-center rounded-full content-center m-3 bg-red-700">
-                    <span class="material-icons">share</span>
-                </div>
+            <div class="flex flex-row content-evenly z-10" id="socialStuff">
+
+                <transition leave-active-class="transition ease-in duration-1000" leave-from-class="opacity-100" leave-to-class="opacity-0">
+                    <div class="absolute mx-2" v-show="showCopyMessage">
+                        <div class="bg-black text-white text-xs rounded py-1 px-4 right-0 bottom-full">
+                            Link Kopiert
+                            <svg class="absolute text-black h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+                        </div>
+                    </div>
+                </transition>
+                <button class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-blue-600 hover:bg-blue-700 shadow-lg" @click="sharePost()">
+                    <span class="material-icons z-30">share</span>
+                </button>
                 <div class="h-25 w-25 m-3 bg-red-700">
                     <span class="material-icons">favorite_border</span>
                 </div>
             </div>
             <hr />
+
             <div class="flex flex-row bg-gray-200 pt-1" v-if="$page.props.user && $page.props.user.role !== 'none'">
                 <inertia-link :href="'/blog/edit?postId='+post.id" class="bg-blue-700 p-2 m-3 rounded">Edit</inertia-link>
                 <button class="bg-red-700 p-2 m-3 rounded">Delete</button>
@@ -52,13 +62,43 @@
     </modal>
 </template>
 
-<script>import Modal from "../../../Jetstream/Modal";
+<script>
+import Modal from "../../../Jetstream/Modal";
 
 export default {
     name: "BlogPostModal",
     components:{Modal},
     props:['post','show'],
-    emits:['close']
+    emits:['close'],
+    data:() => {
+        return{
+            showCopyMessage: false,
+        }
+    },
+    methods:{
+        sharePost(){
+            const sharable = 'loonup.041er-blj.ch/blog?postId='+this.post.id;
+
+            let CopyElement = document.createElement('input');
+            let socialStuff = document.getElementById('socialStuff');
+
+            CopyElement.value = sharable;
+            socialStuff.appendChild(CopyElement);
+
+
+            CopyElement.select();
+            CopyElement.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+
+            socialStuff.removeChild(CopyElement);
+            this.showCopyMessage = true;
+            setTimeout(()=>{
+                this.showCopyMessage = false;
+            },500);
+
+        }
+    }
 }
 </script>
 

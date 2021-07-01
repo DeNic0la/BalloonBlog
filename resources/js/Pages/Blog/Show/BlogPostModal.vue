@@ -47,9 +47,10 @@
                 <button class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-blue-600 hover:bg-blue-700 shadow-lg" @click="sharePost()">
                     <span class="material-icons z-30">share</span>
                 </button>
-                <div class="h-25 w-25 m-3 bg-red-700">
-                    <span class="material-icons">favorite_border</span>
-                </div>
+                <button @click="like()" class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-red-700 hover:bg-red-700 shadow-lg">
+                    <span class="material-icons h-16 w-16">{{isLiked?'favorite_balance':'favorite_border'}}</span>
+                    {{amountOfLikes}}
+                </button>
             </div>
             <hr />
 
@@ -62,17 +63,22 @@
     </modal>
 </template>
 
+
 <script>
 import Modal from "../../../Jetstream/Modal";
 
+
+
 export default {
     name: "BlogPostModal",
-    components:{Modal},
+    components:{Button, Modal},
     props:['post','show'],
     emits:['close'],
     data:() => {
         return{
             showCopyMessage: false,
+            isLiked: false,
+            amountOfLikes: 0,
         }
     },
     methods:{
@@ -97,8 +103,40 @@ export default {
                 this.showCopyMessage = false;
             },500);
 
-        }
-    }
+            },
+            like(){
+                axios.post('/like', {
+                    postId: this.post.id
+                })
+                .then(res => {
+                    console.log(res);
+                    try {
+                        this.isLiked = res.data.state;
+                    }
+                    catch(e){
+
+                    }
+                })
+            },
+          },
+          watch:{
+            post: function(val){
+                if (val=== null)
+                    return
+                axios.post('/like/info', {
+                    postId: val.id
+                }).then(res => {
+                  try {
+                      this.amountOfLikes = res.data.likeAmount ?? 0;
+                      this.isLiked = res.data.userLike ?? false;
+                  }
+                  catch(e){
+
+                  }
+                });
+            },
+        },
+  
 }
 </script>
 

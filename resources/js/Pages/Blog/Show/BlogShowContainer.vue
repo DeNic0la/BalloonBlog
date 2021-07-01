@@ -41,12 +41,15 @@ export default {
             modalPost: null,
         }
     },
-    props:['posts'],
+    props:['posts','selectedPost'],
     methods: {
         showPost(post){
             this.modalPost = post;
         }
     },
+    beforeMount() {
+        this.modalPost = this.selectedPost??null;
+    }
 }
 </script>
 

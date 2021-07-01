@@ -33,6 +33,18 @@
                     {{post.mainText ?? ''}}
                 </div>
             </div>
+            <hr />
+            <div class="flex flex-row content-evenly">
+                <div class="h-16 w-16 flex place-items-center rounded-full content-center m-3 bg-red-700">
+                    <span class="material-icons">share</span>
+                </div>
+                <button @click="like()" class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-red-700 hover:bg-red-700 shadow-lg">
+                    <span class="material-icons h-16 w-16">{{isLiked?'favorite_balance':'favorite_border'}}</span>
+                    {{amountOfLikes}}
+
+                </button>
+            </div>
+            <hr />
             <div class="flex flex-row bg-gray-200 pt-1" v-if="$page.props.user && $page.props.user.role !== 'none'">
                 <inertia-link :href="'/blog/edit?postId='+post.id" class="bg-blue-700 p-2 m-3 rounded">Edit</inertia-link>
                 <button class="bg-red-700 p-2 m-3 rounded">Delete</button>
@@ -42,14 +54,57 @@
     </modal>
 </template>
 
-<script>
-import Modal from "../../../Jetstream/Modal";
+<script>import Modal from "../../../Jetstream/Modal";
+import Button from "../../../Jetstream/Button";
 
 export default {
     name: "BlogPostModal",
-    components:{Modal},
+    components:{Button, Modal},
     props:['post','show'],
-    emits:['close']
+    emits:['close'],
+    data:function () {
+        return{
+            isLiked: false,
+            amountOfLikes: 0,
+        }
+    },
+    methods: {
+        like(){
+            axios.post('/like', {
+                postId: this.post.id
+            })
+            .then(res => {
+                console.log(res);
+                try {
+                    this.isLiked = res.data.state;
+                }
+                catch(e){
+
+                }
+            })
+        },
+
+    },
+    watch:{
+      post: function(val){
+          if (val=== null)
+              return
+          axios.post('/like/info', {
+              postId: val.id
+          }).then(res => {
+            try {
+                this.amountOfLikes = res.data.likeAmount ?? 0;
+                this.isLiked = res.data.userLike ?? false;
+            }
+            catch(e){
+
+            }
+          });
+      },
+    },
+    mounted() {
+
+    }
 }
 </script>
 

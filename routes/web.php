@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,14 +36,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 //Blog
-    //Show
+    //Index
 Route::get('/blog',[BlogController::class, 'index'])->name('blog');
     //Create
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/create',[BlogController::class, 'create']);
     //Edit
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/edit',[BlogController::class, 'edit']);
-
-
 
 //WEB-API
 Route::middleware(['auth:sanctum', 'verified'])->post('/blog/add',[PostController::class,'add']);
@@ -51,3 +50,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/blog/add/image/{post}',[
 
 //For Images
 Route::get('/image',[FileController::class, 'getImage']);
+
+//Likes
+Route::middleware(['auth:sanctum', 'verified'])->post('/like', [LikeController::class, 'like']);
+Route::post('/like/info', [LikeController::class, 'info']);
+

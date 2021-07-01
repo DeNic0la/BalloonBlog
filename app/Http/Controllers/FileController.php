@@ -23,7 +23,9 @@ class FileController extends Controller
         }
 
         $file = Storage::disk('public')->get('/uploads/'.$filename);
-        $type = File::mimeType($path);
+        $pieces = explode(".", $filename);
+
+        $type = $pieces[count($pieces)-1];
 
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);

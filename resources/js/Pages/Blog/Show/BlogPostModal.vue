@@ -47,7 +47,8 @@
                 <button class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-blue-600 hover:bg-blue-700 shadow-lg" @click="sharePost()">
                     <span class="material-icons z-30">share</span>
                 </button>
-                <button @click="like()" class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-red-700 hover:bg-red-700 shadow-lg">
+                <!-- This is Disabled until it Looks better -->
+                <button v-if="false" @click="like()" class="h-16 w-16 flex rounded-full place-items-center place-content-around m-3 bg-red-700 hover:bg-red-700 shadow-lg">
                     <span class="material-icons h-16 w-16">{{isLiked?'favorite_balance':'favorite_border'}}</span>
                     {{amountOfLikes}}
                 </button>
@@ -71,7 +72,7 @@ import Modal from "../../../Jetstream/Modal";
 
 export default {
     name: "BlogPostModal",
-    components:{Button, Modal},
+    components:{Modal},
     props:['post','show'],
     emits:['close'],
     data:() => {
@@ -83,7 +84,7 @@ export default {
     },
     methods:{
         sharePost(){
-            const sharable = 'loonup.041er-blj.ch/blog?postId='+this.post.id;
+            const sharable = 'balloon.fioretti.info/blog?postId='+this.post.id;
 
             let CopyElement = document.createElement('input');
             let socialStuff = document.getElementById('socialStuff');
@@ -136,7 +137,7 @@ export default {
                 });
             },
         },
-  
+
 }
 </script>
 

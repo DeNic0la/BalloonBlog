@@ -22,7 +22,7 @@ class FileController extends Controller
             abort(404);
         }
 
-        $file = File::get($path);
+        $file = Storage::disk('public')->get('/uploads/'.$filename);
         $type = File::mimeType($path);
 
         $response = Response::make($file, 200);

@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 //Blog
-    //Show
+    //Index
 Route::get('/blog',[BlogController::class, 'index'])->name('blog');
     //Create
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/create',[BlogController::class, 'create']);

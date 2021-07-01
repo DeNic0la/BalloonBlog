@@ -33,6 +33,16 @@
                     {{post.mainText ?? ''}}
                 </div>
             </div>
+            <hr />
+            <div class="flex flex-row content-evenly">
+                <div class="h-16 w-16 flex place-items-center rounded-full content-center m-3 bg-red-700">
+                    <span class="material-icons">share</span>
+                </div>
+                <div class="h-25 w-25 m-3 bg-red-700">
+                    <span class="material-icons">favorite_border</span>
+                </div>
+            </div>
+            <hr />
             <div class="flex flex-row bg-gray-200 pt-1" v-if="$page.props.user && $page.props.user.role !== 'none'">
                 <inertia-link :href="'/blog/edit?postId='+post.id" class="bg-blue-700 p-2 m-3 rounded">Edit</inertia-link>
                 <button class="bg-red-700 p-2 m-3 rounded">Delete</button>
@@ -42,8 +52,7 @@
     </modal>
 </template>
 
-<script>
-import Modal from "../../../Jetstream/Modal";
+<script>import Modal from "../../../Jetstream/Modal";
 
 export default {
     name: "BlogPostModal",

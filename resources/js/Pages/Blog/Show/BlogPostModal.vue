@@ -59,7 +59,7 @@
                 </button>
                 <div class="flex flex-row pl-5">
                     <div class="place-self-center">
-                        {{amountOfLikes}} Likes
+                        {{amountOfLikes}} {{likeText}}
                     </div>
                 </div>
 
@@ -155,6 +155,11 @@ export default {
                 });
             },
         },
+    computed:{
+        likeText: function (){
+            return (this.amountOfLikes === 1 ? 'Like':'Likes');
+        },
+    }
 
 }
 </script>

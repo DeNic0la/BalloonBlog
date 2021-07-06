@@ -42,6 +42,8 @@ Route::get('/blog',[BlogController::class, 'index'])->name('blog');
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/create',[BlogController::class, 'create']);
     //Edit
 Route::middleware(['auth:sanctum', 'verified'])->get('/blog/edit',[BlogController::class, 'edit']);
+    //Delete
+Route::middleware(['auth:sanctum', 'verified'])->post('/post/delete',[PostController::class, 'delete']);
 
 //WEB-API
 Route::middleware(['auth:sanctum', 'verified'])->post('/blog/add',[PostController::class,'add']);

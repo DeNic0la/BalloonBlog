@@ -15,7 +15,7 @@
 
 
 
-        <inertia-link v-if="$page.props.user" href="/blog/create" class="fixed z-40 right-0 bottom-0 pr-5 pb-5">
+        <inertia-link v-if="$page.props.user && $page.props.user.role !== 'none'" href="/blog/create" class="fixed z-40 right-0 bottom-0 pr-5 pb-5">
             <blog-add-button />
         </inertia-link>
 

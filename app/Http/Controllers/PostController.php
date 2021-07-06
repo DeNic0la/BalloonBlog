@@ -6,7 +6,10 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
 {
@@ -16,12 +19,18 @@ class PostController extends Controller
             'subHeader' => 'required',
             'mainText' => 'required',
         ]);
+
+        if (Cache::has($validated['header'])){
+            return 'Already Exists';
+        }
+
         $Post = Auth::user()->posts()->create([
             'header' => $validated['header'],
             'subHeader' => $validated['subHeader'],
             'mainText' => $validated['mainText'],
         ]);
 
+        Cache::put($validated['header'], 'exists', $seconds = 30);
         return response($Post,201);
     }
 
@@ -57,11 +66,22 @@ class PostController extends Controller
 
 
         $random = Str::random(40);
-        $file_name = time().'_'.$random.'.'.$request->file->extension();
-        $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+        $fileName = time().'_'.$random.'.'.'jpg';// since all is encoded to jpg, this would be possible $request->file->extension();
+
+        $img = $request->file('file');
+
+        //Compressing
+        $image = Image::make($img->getRealPath());
+        $image->resize(650, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->encode('jpg',80);
+
+        Storage::disk('public')->put('/uploads/'.$fileName, $image);
+
 
         $Post = Post::where('id',$postId)->first();
-        $Post->image = $file_name;
+        $Post->image = $fileName;
         $Post->save();
     }
 }

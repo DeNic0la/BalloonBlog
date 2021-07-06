@@ -24,7 +24,7 @@
 
             </div>
             <div class="flex flex-col px-6 py-5 bg-gray-50">
-                <img :src="post.image?'/image?name='+post.image:'https://images.pexels.com/photos/5913195/pexels-photo-5913195.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'" class="max-h-64 object-contain">
+                <img v-if="post.image" :src="'/image?name='+post.image" class="max-h-64 object-contain">
                 <h1>
                     {{post.subHeader ?? ''}}
                 </h1>

@@ -58,6 +58,18 @@ class PostController extends Controller
 
     }
 
+    public function delete(Request  $request){
+        $validated = $request->validate([
+            'postId' => 'required',
+        ]);
+        $role = Auth::user()->role;
+        if($role == 'none'){
+            abort(403);
+        }
+        $Post = Post::where('id',$validated['postId'])->first();
+        $Post->delete();
+    }
+
     public function uploadImage(Request $request, $postId){
 
         $validated = $request->validate([

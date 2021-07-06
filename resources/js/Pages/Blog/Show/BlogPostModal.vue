@@ -68,7 +68,7 @@
 
             <div class="flex flex-row bg-gray-200 pt-1" v-if="$page.props.user && $page.props.user.role !== 'none'">
                 <inertia-link :href="'/blog/edit?postId='+post.id" class="bg-blue-700 p-2 m-3 rounded">Edit</inertia-link>
-                <button class="bg-red-700 p-2 m-3 rounded">Delete</button>
+                <button @click="deleteButtonPressed" class="bg-red-700 p-2 m-3 rounded">Delete</button>
             </div>
 
         </div>
@@ -137,6 +137,15 @@ export default {
                     }
                 })
             },
+            deleteButtonPressed(){
+                if (confirm('Sind sie sicher dass Sie diesen Post löschen wollen?')) {
+                    axios.post('/post/delete', {
+                        postId: this.post.id
+                    }).then(res=> {
+                        window.location.href = '/blog';
+                    })
+                }
+            }
           },
           watch:{
             post: function(val){

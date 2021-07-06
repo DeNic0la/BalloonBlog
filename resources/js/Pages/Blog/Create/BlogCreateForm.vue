@@ -1,5 +1,10 @@
 <template>
-    <post-form :post="post" @input="post = $event" :button-name="'Post'" v-on:formButtonClick="createForm" />
+    <post-form v-if="!isLoading" :post="post" @input="post = $event" :button-name="'Post'" v-on:formButtonClick="createForm" />
+    <div v-else class="flex justify-center my-20">
+        <div class="text-gray-800">
+            {{loadingMessage}}
+        </div>
+    </div>
 </template>
 
 <script>
@@ -12,33 +17,50 @@ export default {
     },
     methods: {
         createForm(){
+            this.isLoading = true;
             let data = {}
             data.header = this.post.header;
             data.subHeader = this.post.subHeader;
             data.mainText = this.post.mainText;
 
+
             axios.post('/blog/add', data)
                 .then(response =>{
                     if (response.status === 201){
-                        //this.imgConfig.params.postId = response.data.id;
-                        let data = new FormData();
-                        data.append('file',this.post.image);
-                        axios.post('/blog/add/image/'+response.data.id, data , this.imgConfig).then(res => {
+                        if (this.post.image === null){
                             window.location.href = "/blog";
-                        });
-
-                        //TODO Clean Redirect to Post
-                        //
-                        //this.$inertia.visit('/blog');
-                        //this.$router.push('/blog');
+                            this.loadingMessage = 'Fertig!';
+                        }
+                        else{
+                            this.loadingMessage = 'Bild wird Hochgeladen...';
+                            let data = new FormData();
+                            data.append('file',this.post.image);
+                            axios.post('/blog/add/image/'+response.data.id, data , this.imgConfig).then(res => {
+                                window.location.href = "/blog";
+                                this.loadingMessage = 'Fertig!';
+                            }).catch(()=>{
+                                this.onUploadError();
+                            });
+                        }
                     }
+                })
+                .catch(()=>{
+                    this.onUploadError();
                 });
+        },
+        onUploadError(){
+            this.loadingMessage = 'Es ist ein Fehler aufgetretten! Du wirst Weitergeleitet';
+            setTimeout(()=>{
+                //window.location.href = "/blog";
+            },5000)
         }
     },
     data(){
         return{
             post: {subHeader: '', header: '', mainText:'', image: null},
             imgConfig: {headers: {'content-type': 'multipart/form-data'}},
+            isLoading: false,
+            loadingMessage: 'Uploading...'
         }
     },
     beforeCreated(){

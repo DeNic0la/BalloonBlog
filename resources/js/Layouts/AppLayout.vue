@@ -23,9 +23,9 @@
                                 <jet-nav-link :href="route('blog')" :active="route().current('blog')">
                                     Blog
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('stats')" :active="route().current('stats')">
+                                <!--jet-nav-link :href="route('stats')" :active="route().current('stats')">
                                     Statistiken
-                                </jet-nav-link>
+                                </jet-nav-link-->
                                 <a target="_blank" :href="Api_Key" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">
                                     Live
                                 </a>
@@ -113,9 +113,9 @@
                         <jet-responsive-nav-link :href="route('blog')" :active="route().current('blog')">
                             Blog
                         </jet-responsive-nav-link>
-                        <jet-responsive-nav-link :href="route('stats')" :active="route().current('stats')">
+                        <!--jet-responsive-nav-link :href="route('stats')" :active="route().current('stats')">
                             Statistiken
-                        </jet-responsive-nav-link>
+                        </jet-responsive-nav-link-->
                         <a target="_blank" :href="Api_Key" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition">
                             Live
                         </a>

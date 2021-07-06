@@ -4,6 +4,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SpotController;
+use App\Http\Controllers\StatsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -54,4 +56,8 @@ Route::get('/image',[FileController::class, 'getImage']);
 //Likes
 Route::middleware(['auth:sanctum', 'verified'])->post('/like', [LikeController::class, 'like']);
 Route::post('/like/info', [LikeController::class, 'info']);
+
+//Stats
+Route::get('/stats',[StatsController::class, 'index'])->name('stats');
+
 

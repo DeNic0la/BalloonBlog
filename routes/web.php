@@ -61,5 +61,6 @@ Route::post('/like/info', [LikeController::class, 'info']);
 
 //Stats
 Route::get('/stats',[StatsController::class, 'index'])->name('stats');
-
+//Stats images
+Route::get('/stats/image',[FileController::class, 'statsImage']);
 

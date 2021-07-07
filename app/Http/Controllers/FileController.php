@@ -33,4 +33,26 @@ class FileController extends Controller
         return $response;
 
     }
+
+    public function statsImage(Request $request){
+        $value = $request->validate([
+            'name' => 'required',
+        ]);
+        $filename = $value['name'];
+
+        if (!Storage::disk('public')->exists('/stats/'.$filename)) {
+            abort(404);
+        }
+
+        $file = Storage::disk('public')->get('/stats/'.$filename);
+        $pieces = explode(".", $filename);
+
+        $type = $pieces[count($pieces)-1];
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+
+    }
 }

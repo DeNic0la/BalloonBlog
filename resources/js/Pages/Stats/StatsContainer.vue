@@ -6,7 +6,7 @@
             </h2>
         </template>
         <vueper-slides :breakpoints="breakpoints" :dragging-distance="50">
-            <vueper-slide v-for="(slide, i) in images" :key="i" :image="baseUrl+slide.src" />
+            <vueper-slide v-for="(image, i) in images" :key="i" :image="baseUrl+image" />
         </vueper-slides>
 
 
@@ -25,22 +25,9 @@ export default {
     components:{
         AppLayout, VueperSlides, VueperSlide
     },
+    props:['images'],
     data: function(){
         return {
-            images:[
-                {
-                    src: 'Test.JPG',
-                },
-                {
-                    src: 'VeryStats.JPG',
-                },
-                {
-                    src: 'YES.JPG',
-                },
-                {
-                    src: 'work.JPG',
-                },
-            ],
             baseUrl: process.env.MIX_APP_URL+'/stats/image?name=',
             breakpoints: {
                 5000: {
@@ -69,7 +56,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.vueperslides__arrow {color: black}
+.vueperslides__arrow svg {stroke-width: 2}
+
+
+.vueperslides__bullet .default {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    box-shadow: none;
+    transition: 1.0s;
+    width: 16px;
+    height: 16px;
+}
+.vueperslides__bullet--active .default {background-color: #000000;}
 
 </style>
 

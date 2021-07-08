@@ -16,16 +16,34 @@
                 Making Of
             </div>
 
-            <div class="youtubeEmbedContainer" v-if="youtoubeIframeSource && youtoubeIframeSource !== ''">
+            <div class="youtubeEmbedContainer" v-if="youtoubeIframeSourceMaking && youtoubeIframeSourceMaking !== ''">
                 <iframe width="560"
                         height="315"
                         class="youtubeVideoFrame"
-                        :src="youtoubeIframeSource"
+                        :src="youtoubeIframeSourceMaking"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
 
                 </iframe>
+            </div>
+
+            <div v-if="false">
+                <div class="mt-8 text-2xl p-6 sm:px-20">
+                    Flug:
+                </div>
+
+                <div class="youtubeEmbedContainer" v-if="youtoubeIframeSourceFlight && youtoubeIframeSourceFlight !== ''">
+                    <iframe width="560"
+                            height="315"
+                            class="youtubeVideoFrame"
+                            :src="youtoubeIframeSourceFlight"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+
+                    </iframe>
+                </div>
             </div>
         </div>
 
@@ -115,7 +133,8 @@ export default {
     },
     data: function (){
         return{
-            youtoubeIframeSource: process.env.MIX_MAKING_OF_URL ?? '',
+            youtoubeIframeSourceMaking: process.env.MIX_MAKING_OF_URL ?? '',
+            youtoubeIframeSourceFlight: process.env.MIX_FLIGHT_VIDEO_URL ?? '',
         }
     }
 }

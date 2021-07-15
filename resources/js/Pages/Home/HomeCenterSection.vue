@@ -7,12 +7,24 @@
                 </div>
 
                 <div class="mt-6 text-gray-500">
-                    Herzlich willkommen auf dem Blog des Wetterballon Projekt der Komax und Suva lernenden. Hier werden täglich neue Updates und Neuigkeiten rund um den Projektverlauf publiziert. Vorbeischauen lohnt sich.
-                    <a class="link underline text-blue-600" href="/blog" >zum Blog!</a>
+                    Loonup ist ein Projekt, welches wir im Basislehrjahr durchführen. Das Ziel dabei ist es, einen Wetterballon steigen zu lassen. Diesen bauen wir komplett selber zusammen. Der Flug wird mit 3 Kameras aufgenommen und mithilfe von verschiedenen Sensoren werden Daten aufgezeichnet. Die gesammelten Daten und Videos sollen danach auf dieser Webseite ersichtlich sein. Ausserdem wird die Arbeit auf unserem Blog täglich dokumentiert.
+                    <br>
+                    <b>Wir bedanken uns zudem bei den Sponsoren dieses Projektes:</b>
+
+                    <div class="flex mt-1">
+                        <div class="flex-1">
+                            <img src="../../../../storage/app/public/sponsors/Komax.png" alt="Komax">
+                        </div>
+
+                        <div class="flex-1">
+                            <img src="../../../../storage/app/public/sponsors/css.png" alt="Css-Versicherung">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="mt-8 text-2xl p-6 sm:px-20">
+            <div v-if="false" class="mt-8 text-2xl p-6 sm:px-20">
                 Making Of
             </div>
 

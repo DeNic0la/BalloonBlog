@@ -1,17 +1,49 @@
 <template>
     <div>
-        <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-            <div>
-                <jet-application-logo class="block h-12 w-auto" />
+        <div class="bg-white border-b border-gray-200">
+            <div class="p-6 sm:px-20">
+                <div class="mt-8 text-2xl">
+                    Loonup Project
+                </div>
+
+                <div class="mt-6 text-gray-500">
+                    Herzlich willkommen auf dem Blog des Wetterballon Projekt der Komax und Suva lernenden. Hier werden täglich neue Updates und Neuigkeiten rund um den Projektverlauf publiziert. Vorbeischauen lohnt sich.
+                    <a class="link underline text-blue-600" href="/blog" >zum Blog!</a>
+                </div>
             </div>
 
-            <div class="mt-8 text-2xl">
-                Loonup Project
+            <div class="mt-8 text-2xl p-6 sm:px-20">
+                Making Of
             </div>
 
-            <div class="mt-6 text-gray-500">
-                Herzlich willkommen auf dem Blog des Wetterballon Projekt der Komax und Suva lernenden. Hier werden täglich neue Updates und Neuigkeiten rund um den Projektverlauf publiziert. Vorbeischauen lohnt sich.
-                <a class="link underline text-blue-600" href="/blog" >zum Blog!</a>
+            <div class="youtubeEmbedContainer" v-if="youtoubeIframeSourceMaking && youtoubeIframeSourceMaking !== ''">
+                <iframe width="560"
+                        height="315"
+                        class="youtubeVideoFrame"
+                        :src="youtoubeIframeSourceMaking"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+
+                </iframe>
+            </div>
+
+            <div v-if="false">
+                <div class="mt-8 text-2xl p-6 sm:px-20">
+                    Flug:
+                </div>
+
+                <div class="youtubeEmbedContainer" v-if="youtoubeIframeSourceFlight && youtoubeIframeSourceFlight !== ''">
+                    <iframe width="560"
+                            height="315"
+                            class="youtubeVideoFrame"
+                            :src="youtoubeIframeSourceFlight"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+
+                    </iframe>
+                </div>
             </div>
         </div>
 
@@ -99,9 +131,29 @@ export default {
     components: {
         JetApplicationLogo,
     },
+    data: function (){
+        return{
+            youtoubeIframeSourceMaking: process.env.MIX_MAKING_OF_URL ?? '',
+            youtoubeIframeSourceFlight: process.env.MIX_FLIGHT_VIDEO_URL ?? '',
+        }
+    }
 }
 </script>
 
 <style scoped>
+
+.youtubeEmbedContainer {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.youtubeVideoFrame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 </style>

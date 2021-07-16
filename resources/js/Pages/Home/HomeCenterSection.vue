@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div v-if="false" class="mt-8 text-2xl p-6 sm:px-20">
+            <div class="mt-8 text-2xl p-6 sm:px-20">
                 Making Of
             </div>
 
@@ -40,9 +40,9 @@
                 </iframe>
             </div>
 
-            <div v-if="false">
+            <div>
                 <div class="mt-8 text-2xl p-6 sm:px-20">
-                    Flug:
+                    Flugvideo
                 </div>
 
                 <div class="youtubeEmbedContainer" v-if="youtoubeIframeSourceFlight && youtoubeIframeSourceFlight !== ''">
